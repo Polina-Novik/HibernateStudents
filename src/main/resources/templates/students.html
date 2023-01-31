@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/MyStyle.css}">
+</head>
+<body>
+<h1>Group of students:</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Course name</th>
+        <th>Age</th>
+        <th>Expel a student</th>
+    </tr>
+    <th:block th:each="current:${students}">
+        <tr>
+            <td th:text="${current.id}"></td>
+            <td th:text="${current.name}"></td>
+            <td th:text="${current.course}"></td>
+            <td th:text="${current.age}"></td>
+            <td><a th:href="@{/students/delete/{id}(id=${current.id})}">Expel</a></td>
+
+        </tr>
+    </th:block>
+</table>
+<form th:action="@{students}" method="post" th:object="${student}">
+    <input type="text" th:field="*{id}"/>
+    <input type="text" th:field="*{name}"/> <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <input type="text" th:field="*{course}"/> <span th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></span>
+    <input type="text" th:field="*{age}"/> <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+
+    <input type="submit" value="Submit"/>
+
+</form>
+</body>
+</html>

@@ -11,26 +11,26 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
-        <th>Course name</th>
-        <th>Age</th>
+        <th>Course</th>
+        <th>Faculty</th>
         <th>Expel a student</th>
     </tr>
-    <th:block th:each="current:${students}">
+    <th:block th:each="current:${students_list}">
         <tr>
             <td th:text="${current.id}"></td>
             <td th:text="${current.name}"></td>
             <td th:text="${current.course}"></td>
-            <td th:text="${current.age}"></td>
+            <td th:text="${current.faculty}"></td>
             <td><a th:href="@{/students/delete/{id}(id=${current.id})}">Expel</a></td>
 
         </tr>
     </th:block>
 </table>
-<form th:action="@{students}" method="post" th:object="${student}">
-    <input type="text" th:field="*{id}"/>
-    <input type="text" th:field="*{name}"/> <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    <input type="text" th:field="*{course}"/> <span th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></span>
-    <input type="text" th:field="*{age}"/> <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+<form th:action="@{students}" th:method="post" th:object="${student}">
+
+    <input type="text" th:field="*{name}"/>
+    <input type="text" th:field="*{course}"/>
+    <input type="text" th:field="*{faculty}"/>
 
     <input type="submit" value="Submit"/>
 

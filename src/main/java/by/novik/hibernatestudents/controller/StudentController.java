@@ -10,39 +10,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@SessionAttributes("student")
 @RequestMapping("students")
-public class OrderController {
+public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
     public String findAll(Model model) {
-        model.addAttribute("students_list",studentService.findAll());
-        return "students_page";
+        model.addAttribute("students_list", studentService.findAll());
+        return "students";
     }
-    @GetMapping("{id}")
-    public String findById(Model model, @PathVariable(name = "id")  Long id) {
-        Student student = studentService.findById(id).orElseThrow();
 
-        model.addAttribute("single_student",student);
-
-        return "student_page";
-    }
 
     @PostMapping
-    public String createStudent(Student student,Model model) {
+    public String create(Student student, Model model) {
+
         studentService.save(student);
-        model.addAttribute("students_list",studentService.findAll());
-        return "students_page";
+        model.addAttribute("students_list", studentService.findAll());
+        return "students";
     }
 
-
+    @ModelAttribute(name = "student")
+    public Student getNewStudent() {
+        return new Student();
+    }
 
     @GetMapping("delete/{id}")
-    public String deleteOrder(@PathVariable Long id) {
+    public String delete(@PathVariable Long id) {
         studentService.delete(id);
         return "redirect:/students";
     }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 
 @Data
-@Table(name = "students_hybernate")
+@Table(name = "students_hibernate")
 @Entity
 public class Student {
     @Id
